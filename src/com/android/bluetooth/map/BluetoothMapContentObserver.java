@@ -58,7 +58,6 @@ import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.Xml;
-import android.os.Looper;
 import android.os.Message;
 
 import com.android.bluetooth.map.BluetoothMapUtils.TYPE;
@@ -132,7 +131,7 @@ public class BluetoothMapContentObserver {
         return smsType;
     }
 
-    private final ContentObserver mObserver = new ContentObserver(new Handler(Looper.getMainLooper())) {
+    private final ContentObserver mObserver = new ContentObserver(new Handler()) {
         @Override
         public void onChange(boolean selfChange) {
             onChange(selfChange, null);
@@ -1070,7 +1069,7 @@ public class BluetoothMapContentObserver {
         private final Uri UPDATE_STATUS_URI = Uri.parse("content://sms/status");
 
         public void register() {
-            Handler handler = new Handler(Looper.getMainLooper());
+            Handler handler = new Handler();
 
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(ACTION_MESSAGE_DELIVERY);
